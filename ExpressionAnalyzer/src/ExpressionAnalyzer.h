@@ -3,7 +3,9 @@
 #include "ofMain.h"
 #include "ofxOpenCv.h"
 #include "ofxFaceTracker.h"
-#include "ofxPostProcessing.h"
+
+#include "Mask.h"
+#include "Pixelate.h"
 
 class ExpressionAnalyzer : public ofBaseApp{
 
@@ -12,8 +14,6 @@ class ExpressionAnalyzer : public ofBaseApp{
 		void update();
 		void draw();
     
-        void applyMask();
-
 		void keyPressed(int key);
 		void keyReleased(int key);
 		void mouseMoved(int x, int y );
@@ -29,20 +29,4 @@ private:
     ofxFaceTracker          tracker;
     ExpressionClassifier    classifier;
     int                     cIndex;
-    
-    ofFbo                   maskFbo;
-    ofImage                 maskImage;
-    ofPixels                maskPixels;
-    
-    ofxCvColorImage         cvImage;
-    ofxCvColorImage         cvMask;
-    ofxCvGrayscaleImage     cvGrayMask;
-    IplImage*               iplImg;
-    IplImage*               iplMask;
-    IplImage*               iplGrayMask;
-    
-    CvScalar                maskFill;
-    
-    ofxPostProcessing post;
-		
 };

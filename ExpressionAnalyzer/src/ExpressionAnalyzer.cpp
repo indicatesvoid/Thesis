@@ -6,31 +6,24 @@ using namespace cv;
 #define CAM_WIDTH 640
 #define CAM_HEIGHT 480
 
+#define WINDOW_WIDTH 1024
+#define WINDOW_HEIGHT 768
+
+Mask bodyMask(CAM_WIDTH, CAM_HEIGHT, false);
+Mask faceMask(CAM_WIDTH, CAM_HEIGHT, true);
+
+Pixelate pixelate(WINDOW_WIDTH, WINDOW_HEIGHT);
+
 //--------------------------------------------------------------
 void ExpressionAnalyzer::setup(){
     cam.initGrabber(640,480);
     tracker.setup();
     tracker.setRescale(0.5);
     
-    // allocate FBOs for mask and pixelface
-    maskFbo.allocate(CAM_WIDTH, CAM_HEIGHT, GL_RGB);
-    maskPixels.allocate(CAM_WIDTH, CAM_HEIGHT, OF_PIXELS_RGB);
-    maskImage.allocate(CAM_WIDTH, CAM_HEIGHT, OF_IMAGE_COLOR);
+    bodyMask.setup();
+    faceMask.setup();
     
-    // allocate openCv shit
-    cvImage.allocate(CAM_WIDTH, CAM_HEIGHT);
-    cvMask.allocate(CAM_WIDTH, CAM_HEIGHT);
-    cvGrayMask.allocate(CAM_WIDTH, CAM_HEIGHT);
-    iplImg = cvImage.getCvImage();
-    iplGrayMask = cvGrayMask.getCvImage();
-    iplMask = cvMask.getCvImage();
-    
-    // color of masked part
-    maskFill = cvScalarAll(36);
-    
-    // init post-proc (pixelization pass)
-    post.init(CAM_WIDTH, CAM_HEIGHT);
-    post.createPass<PixelatePass>();
+    pixelate.setup();
     
     // load expression classifier(s)
     classifier.load("expressions");
@@ -45,10 +38,15 @@ void ExpressionAnalyzer::update(){
     cam.update();
     
     if(cam.isFrameNew()) {
-        cvImage.setFromPixels(cam.getPixels(), CAM_WIDTH, CAM_HEIGHT);
+
         // apply our mask
-        applyMask();
-        cvSet(iplImg,maskFill,iplGrayMask);
+//        bodyMask.updateMask(cam.getPixels());
+        faceMask.updateMask(cam.getPixels());
+        
+        pixelate.begin();
+            cam.draw(0, 0, ofGetWidth(), ofGetHeight());
+        pixelate.end();
+        
         if(tracker.update(toCv(cam))) {
             classifier.classify(tracker);
         }
@@ -58,47 +56,59 @@ void ExpressionAnalyzer::update(){
     ofPolyline outline = tracker.getImageFeature(ofxFaceTracker::FACE_OUTLINE);
     
     // draw the outline vertices into an FBO for masking
-    maskFbo.begin();
-    ofDisableAlphaBlending();
-    ofFill();
-    ofSetColor(255, 255, 255);
-    ofRect(0,0,CAM_WIDTH,CAM_HEIGHT);
-    ofSetColor(0,0,0);
-    // draw filled polyline
-    ofBeginShape();
-    for(int i = 0; i < outline.getVertices().size(); i++) {
-        ofVertex(outline.getVertices().at(i).x, outline.getVertices().at(i).y);
-    }
-    ofEndShape();
-    maskFbo.end();
+    faceMask.begin();
+        ofDisableAlphaBlending();
+        ofFill();
+        ofSetColor(255, 255, 255);
+        ofRect(0,0,CAM_WIDTH,CAM_HEIGHT);
+        ofSetColor(0,0,0);
+        // draw filled polyline
+        ofBeginShape();
+            for(int i = 0; i < outline.getVertices().size(); i++) {
+                ofVertex(outline.getVertices().at(i).x, outline.getVertices().at(i).y);
+            }
+        ofEndShape();
+    faceMask.end();
     
-    maskFbo.readToPixels(maskPixels);
-    maskImage.setFromPixels(maskPixels);
+    bodyMask.begin();
+        ofDisableAlphaBlending();
+        ofFill();
+        ofSetColor(0, 0, 0);
+        ofRect(0,0,CAM_WIDTH,CAM_HEIGHT);
+        ofSetColor(255,255,255);
+        // draw filled polyline
+        ofBeginShape();
+            for(int i = 0; i < outline.getVertices().size(); i++) {
+                ofVertex(outline.getVertices().at(i).x, outline.getVertices().at(i).y);
+            }
+        ofEndShape();
+    bodyMask.end();
 }
 
 //--------------------------------------------------------------
 void ExpressionAnalyzer::draw(){
     ofSetColor(255);
-	cam.draw(0, 0);
-	//tracker.draw();
     
-    //maskFbo.draw(0,0);
+    //tracker.draw();
+    pixelate.draw(0,0);
+//    bodyMask.draw(0,0);
     
     float res = (classifier.getProbability(cIndex) * (300.0f - 20.0f) + 20.0f);
-//    ofLogNotice("RES :: " + ofToString(res));
     ofVec2f resVec = ofVec2f(res, res);
-    post.getPasses()[0]->setResolution(resVec);
+    pixelate.setResolution(resVec);
     
-    ofSetColor(255,255,255,255);
     
-    ofPushMatrix();
-    post.begin();
-    glTranslated(0, ofGetHeight(), 0);
-    glScalef(2, -2, 0);
-    cvImage.draw(0,0);
-    post.end();
-    ofPopMatrix();
-    
+//    ofPushMatrix();
+////    glPushAttrib(GL_ENABLE_BIT);
+//    post.begin();
+//    glTranslated(0, ofGetHeight(), 0);
+//    glScalef(2, -2, 0);
+////    cvImage.draw(0,0);
+//    faceMask.draw(0,0);
+//    post.end();
+////    glPopAttrib();
+//    ofPopMatrix();
+        
 	int w = 100, h = 12;
 	ofPushStyle();
 	ofPushMatrix();
@@ -127,11 +137,6 @@ void ExpressionAnalyzer::draw(){
                         "l - load expressions",
                         14, ofGetHeight() - 7 * 12);
 
-}
-
-void ExpressionAnalyzer::applyMask() {
-    cvMask.setFromPixels(maskImage.getPixels(), CAM_WIDTH, CAM_HEIGHT);
-    cvInRangeS(iplMask, cvScalarAll(250), cvScalarAll(255), iplGrayMask);
 }
 
 //--------------------------------------------------------------

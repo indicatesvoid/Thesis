@@ -6,13 +6,19 @@
 
 class Mask {
 public:
-    Mask(int w, int h);
+    Mask(int w, int h, bool alphaMask = true);
     void setup();
-    void updateMask();
+    void updateMask(const unsigned char *pixels);
+//    void updateMask(const unsigned char *maskPixels, ofImage top);
     void begin();
     void end();
     
+    void draw(int x, int y);
+    void drawMask(int x, int y);
+    
 private:
+    void allocate();
+    
     int                     w, h;
     ofFbo                   maskFbo;
     ofImage                 maskImage;
@@ -26,4 +32,10 @@ private:
     IplImage*               iplGrayMask;
     
     CvScalar                maskFill;
+    
+    ofShader                maskShader;
+    ofImage                 topLayer;
+    ofImage                 bottomLayer;
+    ofImage                 alphaMaskImage;
+    bool                    alphaMask;
 };

@@ -22,9 +22,8 @@
 		6E23C8DD86B189759F85B24F /* FDet.cc in Sources */ = {isa = PBXBuildFile; fileRef = CF243F4577A116D71116C5C8 /* FDet.cc */; };
 		7CDAD32BE4FA46701E3552C7 /* RunningBackground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5CBF6AED6A17AC0C17F63CC4 /* RunningBackground.cpp */; };
 		7F04AD6D18D68A9400D22473 /* Mask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F04AD6B18D68A9400D22473 /* Mask.cpp */; };
-		7FCFC37918D51DFE006255AB /* PixelatePass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFC35618D51DFE006255AB /* PixelatePass.cpp */; };
-		7FCFC37A18D51DFE006255AB /* PostProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFC35818D51DFE006255AB /* PostProcessing.cpp */; };
-		7FCFC37B18D51DFE006255AB /* RenderPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFC35A18D51DFE006255AB /* RenderPass.cpp */; };
+		7F04AD7118D6AC4000D22473 /* composite.frag in Sources */ = {isa = PBXBuildFile; fileRef = 7F04AD6F18D6AC4000D22473 /* composite.frag */; };
+		7FA6F61718D8C97D008B3061 /* Pixelate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6F61518D8C97D008B3061 /* Pixelate.cpp */; };
 		80AE40254BBE0F03C25563C1 /* CLM.cc in Sources */ = {isa = PBXBuildFile; fileRef = BE9718AC2BA4516A804EE019 /* CLM.cc */; };
 		8AC885FBC5325950337592D2 /* ExpressionClassifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C4F6F873496C3527A28B87F4 /* ExpressionClassifier.cpp */; };
 		9F4DA577D30F7B7CA7B8E5F8 /* FCheck.cc in Sources */ = {isa = PBXBuildFile; fileRef = C415F439B09BAEBA3FB3710F /* FCheck.cc */; };
@@ -156,13 +155,10 @@
 		7E57AAE3FAB29F87D19451BC /* sampling.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = sampling.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/sampling.h; sourceTree = SOURCE_ROOT; };
 		7F04AD6B18D68A9400D22473 /* Mask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mask.cpp; sourceTree = "<group>"; };
 		7F04AD6C18D68A9400D22473 /* Mask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mask.h; sourceTree = "<group>"; };
-		7FCFC35518D51DFE006255AB /* ofxPostProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxPostProcessing.h; sourceTree = "<group>"; };
-		7FCFC35618D51DFE006255AB /* PixelatePass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PixelatePass.cpp; sourceTree = "<group>"; };
-		7FCFC35718D51DFE006255AB /* PixelatePass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelatePass.h; sourceTree = "<group>"; };
-		7FCFC35818D51DFE006255AB /* PostProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PostProcessing.cpp; sourceTree = "<group>"; };
-		7FCFC35918D51DFE006255AB /* PostProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostProcessing.h; sourceTree = "<group>"; };
-		7FCFC35A18D51DFE006255AB /* RenderPass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderPass.cpp; sourceTree = "<group>"; };
-		7FCFC35B18D51DFE006255AB /* RenderPass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderPass.h; sourceTree = "<group>"; };
+		7F04AD6F18D6AC4000D22473 /* composite.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = composite.frag; sourceTree = "<group>"; };
+		7F04AD7018D6AC4000D22473 /* composite.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = composite.vert; sourceTree = "<group>"; };
+		7FA6F61518D8C97D008B3061 /* Pixelate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pixelate.cpp; sourceTree = "<group>"; };
+		7FA6F61618D8C97D008B3061 /* Pixelate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pixelate.h; sourceTree = "<group>"; };
 		820102E51B125101D727B3CC /* ETF.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ETF.h; path = ../../../addons/ofxCv/libs/CLD/include/CLD/ETF.h; sourceTree = SOURCE_ROOT; };
 		8326CDEDA153D242D924D2B6 /* Flow.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Flow.h; path = ../../../addons/ofxCv/libs/ofxCv/include/ofxCv/Flow.h; sourceTree = SOURCE_ROOT; };
 		84D3470A12DEE51F320224AC /* Utilities.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Utilities.h; path = ../../../addons/ofxCv/libs/ofxCv/include/ofxCv/Utilities.h; sourceTree = SOURCE_ROOT; };
@@ -529,26 +525,23 @@
 			name = CLD;
 			sourceTree = "<group>";
 		};
-		7FCFC32318D51DFE006255AB /* ofxPostProcessing */ = {
+		7F04AD6E18D6AC2F00D22473 /* shaders */ = {
 			isa = PBXGroup;
 			children = (
-				7FCFC33618D51DFE006255AB /* src */,
+				7F04AD6F18D6AC4000D22473 /* composite.frag */,
+				7F04AD7018D6AC4000D22473 /* composite.vert */,
 			);
-			path = ofxPostProcessing;
+			name = shaders;
+			path = bin/data/shaders;
 			sourceTree = "<group>";
 		};
-		7FCFC33618D51DFE006255AB /* src */ = {
+		7FA6F65E18D956E2008B3061 /* Pixelate */ = {
 			isa = PBXGroup;
 			children = (
-				7FCFC35518D51DFE006255AB /* ofxPostProcessing.h */,
-				7FCFC35618D51DFE006255AB /* PixelatePass.cpp */,
-				7FCFC35718D51DFE006255AB /* PixelatePass.h */,
-				7FCFC35818D51DFE006255AB /* PostProcessing.cpp */,
-				7FCFC35918D51DFE006255AB /* PostProcessing.h */,
-				7FCFC35A18D51DFE006255AB /* RenderPass.cpp */,
-				7FCFC35B18D51DFE006255AB /* RenderPass.h */,
+				7FA6F61518D8C97D008B3061 /* Pixelate.cpp */,
+				7FA6F61618D8C97D008B3061 /* Pixelate.h */,
 			);
-			path = src;
+			name = Pixelate;
 			sourceTree = "<group>";
 		};
 		85961BEC127E2550AA7756C9 /* ofxCv */ = {
@@ -658,7 +651,6 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
-				7FCFC32318D51DFE006255AB /* ofxPostProcessing */,
 				A0B90D3B0ADB9C1716816714 /* ofxOpenCv */,
 				6025FAF6414C2CA589764D26 /* ofxCv */,
 				2B86176FA97BFB2BEE1F2F83 /* ofxFaceTracker */,
@@ -784,6 +776,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				7F04AD6E18D6AC2F00D22473 /* shaders */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
@@ -797,6 +790,7 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				7FA6F65E18D956E2008B3061 /* Pixelate */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ExpressionAnalyzer.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ExpressionAnalyzer.h */,
@@ -970,8 +964,6 @@
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ExpressionAnalyzer.cpp in Sources */,
 				250A95BA26587BE85DB0A353 /* ofxCvColorImage.cpp in Sources */,
-				7FCFC37B18D51DFE006255AB /* RenderPass.cpp in Sources */,
-				7FCFC37A18D51DFE006255AB /* PostProcessing.cpp in Sources */,
 				1D5F3298C2FA073628012944 /* ofxCvContourFinder.cpp in Sources */,
 				169D3C72FDE6C5590A1616F5 /* ofxCvFloatImage.cpp in Sources */,
 				FB09C6B2A1DA0EA217240CB8 /* ofxCvGrayscaleImage.cpp in Sources */,
@@ -993,8 +985,9 @@
 				DBCB84A37F9AECC254870D79 /* Wrappers.cpp in Sources */,
 				F451166A6C72528F3F009F6C /* Expression.cpp in Sources */,
 				8AC885FBC5325950337592D2 /* ExpressionClassifier.cpp in Sources */,
-				7FCFC37918D51DFE006255AB /* PixelatePass.cpp in Sources */,
+				7F04AD7118D6AC4000D22473 /* composite.frag in Sources */,
 				24735CD2E138DC5C1F0A1085 /* ofxFaceTracker.cpp in Sources */,
+				7FA6F61718D8C97D008B3061 /* Pixelate.cpp in Sources */,
 				80AE40254BBE0F03C25563C1 /* CLM.cc in Sources */,
 				9F4DA577D30F7B7CA7B8E5F8 /* FCheck.cc in Sources */,
 				6E23C8DD86B189759F85B24F /* FDet.cc in Sources */,
