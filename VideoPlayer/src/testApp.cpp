@@ -1,5 +1,11 @@
 #include "testApp.h"
 
+FutureVideo* testApp::videos[NUM_VIDEOS] = {
+    new FutureVideo("fingers.mov", false),
+    new FutureVideo("furries.mov", false),
+    new FutureVideo("fursuits.mov", false)
+};
+
 //--------------------------------------------------------------
 void testApp::setup(){
     arduino = new Arduino();

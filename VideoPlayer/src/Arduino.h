@@ -56,7 +56,7 @@ private:
     int                 mode;
     
     unsigned char bytes[NUM_BYTES];
-    int bytesRemaining = NUM_BYTES;
+    static int bytesRemaining;
     
     void writeString(string &msg)
     {

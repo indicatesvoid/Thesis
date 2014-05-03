@@ -27,11 +27,7 @@ class testApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
     
     private:
-        FutureVideo *videos[NUM_VIDEOS] = {
-            new FutureVideo("fingers.mov", false),
-            new FutureVideo("furries.mov", false),
-            new FutureVideo("fursuits.mov", false)
-        };
+        static FutureVideo *videos[NUM_VIDEOS];
     
         Arduino *arduino;
 };
