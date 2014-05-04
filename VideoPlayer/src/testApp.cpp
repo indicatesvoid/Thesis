@@ -1,7 +1,7 @@
 #include "testApp.h"
 
 FutureVideo* testApp::videos[NUM_VIDEOS] = {
-    new FutureVideo("fingers.mov", false),
+    new FutureVideo("fingers.mov", true),
     new FutureVideo("furries.mov", false),
     new FutureVideo("fursuits.mov", false)
 };
@@ -10,7 +10,7 @@ FutureVideo* testApp::videos[NUM_VIDEOS] = {
 void testApp::setup(){
     arduino = new Arduino();
     
-    for(size_t idx=0; idx < NUM_VIDEOS; idx++) videos[idx]->load();
+    for(size_t idx=0; idx < NUM_VIDEOS; idx++) if(videos[idx]->isActive())  videos[idx]->load();
     
     ofAddListener(AppEvent::BUTTON_PRESSED, this, &testApp::onButtonPressed);
 }
@@ -30,6 +30,7 @@ void testApp::draw(){
 }
 
 void testApp::onButtonPressed(int &btnIndex) {
+    ofLogNotice("Button press detected!");
     for(size_t idx=0; idx < NUM_VIDEOS; idx++) {
         bool active = (idx == btnIndex) ? true : false;
         videos[idx]->setActive(active);

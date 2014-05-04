@@ -16,6 +16,7 @@ public:
     FutureVideo(string _path, bool _active = false);
     
     void setActive(bool active);
+    bool isActive() { return bIsActive; }
     void load();
     void update();
     void play();

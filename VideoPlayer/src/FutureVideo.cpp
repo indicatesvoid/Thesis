@@ -17,11 +17,13 @@ void FutureVideo::setActive(bool active) {
     bIsActive = active;
     
     if(!active) {
+	player.close();
         player.stop();
         player.firstFrame();
     }
     
     if(active) {
+	player.loadMovie(sPath);
         play();
     }
 }
@@ -32,7 +34,10 @@ void FutureVideo::load() {
 }
 
 void FutureVideo::update() {
-    if(bIsActive) player.update();
+    if(bIsActive) {
+	if(player.getIsMovieDone()) player.firstFrame();
+	player.update();
+    }
 }
 
 void FutureVideo::play() {

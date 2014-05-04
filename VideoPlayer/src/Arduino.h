@@ -18,15 +18,21 @@ public:
         serial.listDevices();
         for (int i=0; i < list.size(); i++) {
             string n = list[i].getDevicePath();
-            if (std::string::npos != n.find("/dev/tty.usbserial")) ports.push_back(n);      // for boards that use FTDI serial
-            if(std::string::npos != n.find("/dev/tty.usbmodem")) ports.push_back(n);        // for newer boards (Mega, Uno, etc)
+            if (std::string::npos != n.find("/dev/tty.usbserial") || std::string::npos != n.find("dev/TTYACM")) ports.push_back(n);      // for boards that use FTDI serial
+            if(std::string::npos != n.find("/dev/tty.usbmodem") || std::string::npos != n.find("/dev/TTYACM")) ports.push_back(n);        // for newer boards (Mega, Uno, etc)
             //ofLogNotice(ofToString(n));
         }
         
+	// fallback - choose first available serial device
+	if (ports.size() == 0 && list.size() != 0) ports.push_back(list[0].getDevicePath());
+
+	// success!
         if (ports.size() != 0) {
             ofLogNotice("arduinoPort :: "+ports[0]);
             serialReady = serial.setup(ports[0], 9600);
-        }
+     	}
+
+	//else ofLogError() << "No arduino port found";
         
         // serialReady is broken, returns 255 if device is not connected ...
         if (serialReady){
@@ -46,6 +52,8 @@ public:
             ofLogNotice("BYTES RETURNED :: " + ofToString((int)bytesReturned[1]));
             ofNotifyEvent(AppEvent::BUTTON_PRESSED, btnIndex);
         }
+
+	//else ofLogError("Opcode not found. Byte read: " + ofToString(bytesReturned[0]));
     }
     
 private:
